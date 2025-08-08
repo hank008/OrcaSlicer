@@ -1482,7 +1482,7 @@ msgid ""
 msgstr "配置文件“%1%”已被加载，但部分数值未被识别。"
 
 msgid "Based on PrusaSlicer and BambuStudio"
-msgstr ""
+msgstr "基于OrcaSlicer、PrusaSlicer以及BambuStudio开发。"
 
 msgid ""
 "OrcaSlicer will terminate because of running out of memory. It may be a bug. "
@@ -2808,7 +2808,7 @@ msgid "GNU Affero General Public License, version 3"
 msgstr "GNU Affero 通用公共许可证，版本 3下授权的"
 
 msgid "Orca Slicer is based on PrusaSlicer and BambuStudio"
-msgstr "Orca Slicer 基于 PrusaSlicer 以及 BambuStudio 开发"
+msgstr "BSRCSlicer 基于Orca Slicer、PrusaSlicer 以及 BambuStudio 开发"
 
 msgid "Libraries"
 msgstr "库"
@@ -2821,6 +2821,9 @@ msgstr "本软件使用开源组件，其版权和其他所有权属于各自的
 #, c-format, boost-format
 msgid "About %s"
 msgstr "关于 %s"
+
+msgid "BSRCSlicer is based on OrcaSlicer."
+msgstr "OrcaSlicer基于BambuStudio、PrusaSlicer 以及SuperSlicer开发。"
 
 msgid "OrcaSlicer is based on BambuStudio, PrusaSlicer, and SuperSlicer."
 msgstr "OrcaSlicer基于BambuStudio、PrusaSlicer 以及SuperSlicer开发。"

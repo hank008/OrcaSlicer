@@ -244,8 +244,8 @@ AboutDialog::AboutDialog()
         vesizer->Add(0, 0, 1, wxEXPAND, FromDIP(5));
         auto          version_string = std::string(SoftFever_VERSION); // _L("Orca Slicer ") + " " + std::string(SoftFever_VERSION);
         wxStaticText* version = new wxStaticText(this, wxID_ANY, version_string.c_str(), wxDefaultPosition, wxDefaultSize);
-        wxStaticText* credits_string = new wxStaticText(this, wxID_ANY, wxString::Format("Build %s", std::string(GIT_COMMIT_HASH)), wxDefaultPosition, wxDefaultSize);
-        credits_string->SetFont(_build_string_font);
+        //wxStaticText* credits_string = new wxStaticText(this, wxID_ANY, wxString::Format("Build %s", std::string(GIT_COMMIT_HASH)), wxDefaultPosition, wxDefaultSize);
+        //credits_string->SetFont(_build_string_font);
         wxFont version_font = GetFont();
         #ifdef __WXMSW__
 			version_font.SetPointSize(version_font.GetPointSize()-1);
@@ -255,13 +255,13 @@ AboutDialog::AboutDialog()
         version_font.SetPointSize(20);
         version->SetFont(version_font);
         version->SetForegroundColour(wxColour("#949494"));
-        credits_string->SetForegroundColour(wxColour("#949494"));
+        //credits_string->SetForegroundColour(wxColour("#949494"));
         version->SetBackgroundColour(wxColour("#FFFFFF"));
-        credits_string->SetBackgroundColour(wxColour("#FFFFFF"));
+        //credits_string->SetBackgroundColour(wxColour("#FFFFFF"));
 
         vesizer->Add(version, 0, wxRIGHT | wxALIGN_RIGHT, FromDIP(20));
         vesizer->AddSpacer(FromDIP(5));
-        vesizer->Add(credits_string, 0, wxRIGHT | wxALIGN_RIGHT, FromDIP(20));
+        //vesizer->Add(credits_string, 0, wxRIGHT | wxALIGN_RIGHT, FromDIP(20));
         vesizer->Add(0, 0, 1, wxEXPAND, FromDIP(5));
     }
 
@@ -270,6 +270,7 @@ AboutDialog::AboutDialog()
     text_sizer_horiz->Add( 0, 0, 0, wxLEFT, FromDIP(20));
 
     std::vector<wxString> text_list;
+    text_list.push_back(_L("BSRCSlicer is based on OrcaSlicer."));
     text_list.push_back(_L("OrcaSlicer is based on BambuStudio, PrusaSlicer, and SuperSlicer."));
     text_list.push_back(_L("BambuStudio is originally based on PrusaSlicer by PrusaResearch."));
     text_list.push_back(_L("PrusaSlicer is originally based on Slic3r by Alessandro Ranellucci."));
@@ -315,10 +316,12 @@ AboutDialog::AboutDialog()
 
     copyright_hor_sizer->Add(copyright_ver_sizer, 0, wxLEFT, FromDIP(20));
 
-    wxStaticText *html_text = new wxStaticText(this, wxID_ANY, "Copyright(C) 2022-2025 Li Jiang All Rights Reserved", wxDefaultPosition, wxDefaultSize);
+    //wxStaticText *html_text = new wxStaticText(this, wxID_ANY, "Copyright(C) 2022-2025 Li Jiang All Rights Reserved", wxDefaultPosition, wxDefaultSize);
+    wxStaticText* html_text = new wxStaticText(this, wxID_ANY, "Copyright(C) 2022-2025 BSRC All Rights Reserved.", wxDefaultPosition,
+                                               wxDefaultSize);
     html_text->SetForegroundColour(wxColour(107, 107, 107));
 
-    copyright_ver_sizer->Add(html_text, 0, wxALL , 0);
+    
 
     m_html = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_NEVER /*NEVER*/);
       {
@@ -332,16 +335,16 @@ AboutDialog::AboutDialog()
               (boost::format(
               "<html>"
               "<body>"
-              "<p style=\"text-align:left\"><a style=\"color:#009789\" href=\"https://github.com/SoftFever/Orcaslicer\">https://github.com/SoftFever/Orcaslicer</ a></p>"
+              "<p style=\"text-align:left\"><a style=\"color:#009789\" href=\"#\"></ a></p>"
               "</body>"
               "</html>")
             ).str());
           m_html->SetPage(text);
           copyright_ver_sizer->Add(m_html, 0, wxEXPAND, 0);
-          m_html->Bind(wxEVT_HTML_LINK_CLICKED, &AboutDialog::onLinkClicked, this);
+          //m_html->Bind(wxEVT_HTML_LINK_CLICKED, &AboutDialog::onLinkClicked, this);
       }
     //Add "Portions copyright" button
-    Button* button_portions = new Button(this,_L("Portions copyright"));
+      /* Button* button_portions = new Button(this, _L("Portions copyright"));
     button_portions->SetStyle(ButtonStyle::Regular, ButtonType::Window);
 
     wxBoxSizer *copyright_button_ver = new wxBoxSizer(wxVERTICAL);
@@ -353,8 +356,8 @@ AboutDialog::AboutDialog()
 
     ver_sizer->Add(copyright_hor_sizer, 0, wxEXPAND ,0);
     ver_sizer->Add( 0, 0, 0, wxTOP, FromDIP(30));
-    button_portions->Bind(wxEVT_BUTTON, &AboutDialog::onCopyrightBtn, this);
-
+    button_portions->Bind(wxEVT_BUTTON, &AboutDialog::onCopyrightBtn, this);*/
+    copyright_ver_sizer->Add(html_text, 0, wxALL, 0);
     wxGetApp().UpdateDlgDarkUI(this);
 	SetSizer(main_sizer);
     Layout();

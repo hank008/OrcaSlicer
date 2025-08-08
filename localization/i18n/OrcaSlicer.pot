@@ -2784,6 +2784,9 @@ msgstr ""
 msgid "About %s"
 msgstr ""
 
+msgid "BSRCSlicer is based on OrcaSlicer."
+msgstr ""
+
 msgid "OrcaSlicer is based on BambuStudio, PrusaSlicer, and SuperSlicer."
 msgstr ""
 
