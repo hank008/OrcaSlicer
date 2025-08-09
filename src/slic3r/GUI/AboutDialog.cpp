@@ -321,10 +321,10 @@ AboutDialog::AboutDialog()
                                                wxDefaultSize);
     html_text->SetForegroundColour(wxColour(107, 107, 107));
 
+    copyright_ver_sizer->Add(html_text, 0, wxALL, 0);
     
-
-    m_html = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_NEVER /*NEVER*/);
-      {
+    //m_html = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_NEVER /*NEVER*/);
+     /*{
           wxFont font = get_default_font(this);
           const int fs = font.GetPointSize()-1;
           int size[] = {fs,fs,fs,fs,fs,fs,fs};
@@ -341,23 +341,23 @@ AboutDialog::AboutDialog()
             ).str());
           m_html->SetPage(text);
           copyright_ver_sizer->Add(m_html, 0, wxEXPAND, 0);
-          //m_html->Bind(wxEVT_HTML_LINK_CLICKED, &AboutDialog::onLinkClicked, this);
-      }
+          m_html->Bind(wxEVT_HTML_LINK_CLICKED, &AboutDialog::onLinkClicked, this);
+    }*/ 
     //Add "Portions copyright" button
-      /* Button* button_portions = new Button(this, _L("Portions copyright"));
-    button_portions->SetStyle(ButtonStyle::Regular, ButtonType::Window);
+    //Button* button_portions = new Button(this, _L("Portions copyright"));
+    //button_portions->SetStyle(ButtonStyle::Regular, ButtonType::Window);
 
-    wxBoxSizer *copyright_button_ver = new wxBoxSizer(wxVERTICAL);
-    copyright_button_ver->Add( 0, 0, 0, wxTOP, FromDIP(10));
-    copyright_button_ver->Add(button_portions, 0, wxALL,0);
+    //wxBoxSizer *copyright_button_ver = new wxBoxSizer(wxVERTICAL);
+    //copyright_button_ver->Add( 0, 0, 0, wxTOP, FromDIP(10));
+    //copyright_button_ver->Add(button_portions, 0, wxALL,0);
 
     copyright_hor_sizer->AddStretchSpacer();
-    copyright_hor_sizer->Add(copyright_button_ver, 0, wxRIGHT, FromDIP(20));
+    //copyright_hor_sizer->Add(copyright_button_ver, 0, wxRIGHT, FromDIP(20));
 
     ver_sizer->Add(copyright_hor_sizer, 0, wxEXPAND ,0);
     ver_sizer->Add( 0, 0, 0, wxTOP, FromDIP(30));
-    button_portions->Bind(wxEVT_BUTTON, &AboutDialog::onCopyrightBtn, this);*/
-    copyright_ver_sizer->Add(html_text, 0, wxALL, 0);
+    //button_portions->Bind(wxEVT_BUTTON, &AboutDialog::onCopyrightBtn, this);
+   
     wxGetApp().UpdateDlgDarkUI(this);
 	SetSizer(main_sizer);
     Layout();

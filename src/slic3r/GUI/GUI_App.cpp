@@ -1966,7 +1966,7 @@ void GUI_App::init_app_config()
     SetAppName(SLIC3R_APP_KEY);
 //	SetAppName(SLIC3R_APP_KEY "-alpha");
 //  SetAppName(SLIC3R_APP_KEY "-beta");
-//	SetAppDisplayName(SLIC3R_APP_NAME);
+	SetAppDisplayName(SLIC3R_APP_NAME);
 
 	// Set the Slic3r data directory at the Slic3r XS module.
 	// Unix: ~/ .Slic3r
@@ -3783,7 +3783,7 @@ void GUI_App::get_login_info()
             wxString strJS = wxString::Format("window.postMessage(%s)", logout_cmd);
             GUI::wxGetApp().run_script(strJS);
         }
-        mainframe->m_webview->SetLoginPanelVisibility(true);
+        //mainframe->m_webview->SetLoginPanelVisibility(true);
     }
 }
 
@@ -3895,9 +3895,9 @@ std::string GUI_App::handle_web_request(std::string cmd)
                     });
             }
             else if (command_str.compare("homepage_login_or_register") == 0) {
-                CallAfter([this] {
+                /* CallAfter([this] {
                     this->request_login(true);
-                });
+                });*/
             }
             else if (command_str.compare("homepage_logout") == 0) {
                 CallAfter([this] {

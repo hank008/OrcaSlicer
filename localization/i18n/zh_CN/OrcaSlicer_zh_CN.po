@@ -2823,7 +2823,7 @@ msgid "About %s"
 msgstr "关于 %s"
 
 msgid "BSRCSlicer is based on OrcaSlicer."
-msgstr "OrcaSlicer基于BambuStudio、PrusaSlicer 以及SuperSlicer开发。"
+msgstr "BSRCSlicer基于OrcaSlicer、BambuStudio、PrusaSlicer 以及SuperSlicer开发。"
 
 msgid "OrcaSlicer is based on BambuStudio, PrusaSlicer, and SuperSlicer."
 msgstr "OrcaSlicer基于BambuStudio、PrusaSlicer 以及SuperSlicer开发。"
