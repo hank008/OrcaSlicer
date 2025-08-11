@@ -16159,3 +16159,24 @@ msgstr ""
 #: resources/data/hints.ini: [hint:Avoid warping]
 msgid "Avoid warping\nDid you know that when printing materials that are prone to warping such as ABS, appropriately increasing the heatbed temperature can reduce the probability of warping?"
 msgstr ""
+
+msgid "click to add machine"
+msgstr ""
+
+msgid "Bind with IP"
+msgstr ""
+
+msgid "Connect the printer using IP"
+msgstr ""
+
+msgid ""
+"Step 1. Please confirm BSRC Slicer and your printer are in the same LAN."
+msgstr ""
+
+msgid ""
+"Step 2. If the IP below are different from the actual values "
+"on your printer, please correct them."
+msgstr ""
+
+msgid "Where to find your printer's IP?"
+msgstr ""

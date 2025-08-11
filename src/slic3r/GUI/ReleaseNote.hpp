@@ -335,12 +335,74 @@ public:
     void on_dpi_changed(const wxRect& suggested_rect) override;
 };
 
+class InputIpAddressAndNameDialog : public DPIDialog
+{
+public:
+    wxString comfirm_before_enter_text;
+    wxString comfirm_after_enter_text;
+    wxString comfirm_last_enter_text;
+
+    boost::thread* m_thread{nullptr};
+
+    std::string m_ip;
+    wxWindow*   m_step_icon_panel3{nullptr};
+    Label*      m_tip1{nullptr};
+    Label*      m_tip2{nullptr};
+    Label*      m_tip3{nullptr};
+    Label*      m_tip4{nullptr};
+    InputIpAddressAndNameDialog(wxWindow* parent = nullptr);
+    ~InputIpAddressAndNameDialog();
+
+    MachineObject*                                 m_obj{nullptr};
+    wxPanel*                                       ip_input_top_panel{nullptr};
+    wxPanel*                                       ip_input_bot_panel{nullptr};
+    Button*                                        m_button_ok{nullptr};
+    Button*                                        m_button_manual_setup{nullptr};
+    Label*                                         m_tips_ip{nullptr};
+    Label*                                         m_tips_printer_name{nullptr};
+    Label*                                         m_test_right_msg{nullptr};
+    Label*                                         m_test_wrong_msg{nullptr};
+    TextInput*                                     m_input_ip{nullptr};
+    TextInput*                                     m_input_printer_name{nullptr};
+    wxStaticBitmap*                                m_img_help{nullptr};
+    wxStaticBitmap*                                m_img_step1{nullptr};
+    wxStaticBitmap*                                m_img_step2{nullptr};
+    wxStaticBitmap*                                m_img_step3{nullptr};
+    wxHyperlinkCtrl*                               m_trouble_shoot{nullptr};
+    wxTimer*                                       closeTimer{nullptr};
+    int                                            closeCount{3};
+    int                                            m_result;
+    int                                            current_input_index{0};
+    std::shared_ptr<BBLStatusBarSend>              m_status_bar;
+    boost::bimaps::bimap<std::string, std::string> m_models_map;
+
+    void switch_input_panel(int index);
+    void on_cancel();
+    void update_title(wxString title);
+    void set_machine_obj(MachineObject* obj);
+    void update_test_msg(wxString msg, bool connected);
+    bool isIp(std::string ipstr);
+    void check_ip_address_failed(int result);
+    void on_check_ip_address_failed(wxCommandEvent& evt);
+    void on_ok(wxMouseEvent& evt);
+    void update_test_msg_event(wxCommandEvent& evt);
+    void post_update_test_msg(wxString text, bool beconnect);
+    void workerThreadFunc(std::string str_ip, std::string name);
+    void OnTimer(wxTimerEvent& event);
+    void on_text(wxCommandEvent& evt);
+    void on_dpi_changed(const wxRect& suggested_rect) override;
+};
+
 
 wxDECLARE_EVENT(EVT_CLOSE_IPADDRESS_DLG, wxCommandEvent);
 wxDECLARE_EVENT(EVT_CHECKBOX_CHANGE, wxCommandEvent);
 wxDECLARE_EVENT(EVT_ENTER_IP_ADDRESS, wxCommandEvent);
 wxDECLARE_EVENT(EVT_CHECK_IP_ADDRESS_FAILED, wxCommandEvent);
 wxDECLARE_EVENT(EVT_CHECK_IP_ADDRESS_LAYOUT, wxCommandEvent);
+
+wxDECLARE_EVENT(EVT_CLOSE_IPADDRESS_NAME_DLG, wxCommandEvent);
+wxDECLARE_EVENT(EVT_CHECK_IP_ADDRESS_NAME_FAILED, wxCommandEvent);
+wxDECLARE_EVENT(EVT_CHECK_IP_ADDRESS_NAME_LAYOUT, wxCommandEvent);
 
 
 }} // namespace Slic3r::GUI

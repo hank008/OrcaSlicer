@@ -1276,8 +1276,10 @@ void Sidebar::update_all_preset_comboboxes()
                 apikey = cfg.opt_string("printhost_apikey");
             print_btn_type = preset_bundle.is_bbl_vendor() ? MainFrame::PrintSelectType::ePrintPlate : MainFrame::PrintSelectType::eSendGcode;
         }
-
-        p_mainframe->load_printer_url(url, apikey);
+        if (!url.Contains("missing_connection")){
+            p_mainframe->load_printer_url(url, apikey);
+        }
+        
 
 
         p_mainframe->set_print_button_to_default(print_btn_type);
@@ -1337,7 +1339,8 @@ void Sidebar::update_all_preset_comboboxes()
         p->combo_printer->update();
 
     // Orca:: show device tab based on vendor type
-    p_mainframe->show_device(preset_bundle.use_bbl_device_tab());
+    //p_mainframe->show_device(preset_bundle.use_bbl_device_tab());
+    p_mainframe->show_device(true);
     p_mainframe->m_tabpanel->SetSelection(p_mainframe->m_tabpanel->GetSelection());
 }
 
@@ -7305,7 +7308,7 @@ void Plater::priv::on_tab_selection_changing(wxBookCtrlEvent& e)
             wxString url = cfg.opt_string("print_host_webui").empty() ? cfg.opt_string("print_host") : cfg.opt_string("print_host_webui");
             if (main_frame->m_printer_view && url.empty()) {
                 // It's missing_connection page, reload so that we can replay the gif image
-                main_frame->m_printer_view->reload();
+               //main_frame->m_printer_view->reload();
             }
         }
     }

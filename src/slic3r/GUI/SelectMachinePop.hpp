@@ -179,6 +179,7 @@ private:
     int                               m_other_devices_count{0};
     PinCodePanel*                     m_panel_ping_code{nullptr};
     PinCodePanel*                     m_panel_direct_connection{nullptr};
+    PinCodePanel*                     m_panel_ip_bind{nullptr};
     wxWindow*                         m_placeholder_panel{nullptr};
     wxHyperlinkCtrl*                  m_hyperlink{nullptr};
     Label*                            m_ping_code_text{nullptr};

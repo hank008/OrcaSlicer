@@ -63,7 +63,7 @@ AddMachinePanel::AddMachinePanel(wxWindow* parent, wxWindowID id, const wxPoint&
     m_button_add_machine->SetBorderColor(0x909090);
     m_button_add_machine->SetMinSize(wxSize(96, 39));
     btn_sizer->Add(m_button_add_machine, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
-    m_staticText_add_machine = new wxStaticText(this, wxID_ANY, wxT("click to add machine"), wxDefaultPosition, wxDefaultSize, 0);
+    m_staticText_add_machine = new wxStaticText(this, wxID_ANY, _L("click to add machine"), wxDefaultPosition, wxDefaultSize, 0);
     m_staticText_add_machine->Wrap(-1);
     m_staticText_add_machine->SetForegroundColour(0x909090);
     btn_sizer->Add(m_staticText_add_machine, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5);
@@ -186,19 +186,21 @@ MonitorPanel::~MonitorPanel()
         page->SetFocus();
     }, m_tabpanel->GetId());
 
-    //m_status_add_machine_panel = new AddMachinePanel(m_tabpanel);
-    m_status_info_panel        = new StatusPanel(m_tabpanel);
-    m_tabpanel->AddPage(m_status_info_panel, _L("Status"), "", true);
+    m_status_add_machine_panel = new AddMachinePanel(m_tabpanel);
+    m_tabpanel->AddPage(m_status_add_machine_panel, _L(""), "", true);
+    //m_tabpanel->AddPage(m_status_add_machine_panel, _L("Status"), "", true);
+    //m_status_info_panel        = new StatusPanel(m_tabpanel);
+   // m_tabpanel->AddPage(m_status_info_panel, _L("Status"), "", true);
 
-    m_media_file_panel = new MediaFilePanel(m_tabpanel);
-    m_tabpanel->AddPage(m_media_file_panel, _L("Storage"), "", false);
+    //m_media_file_panel = new MediaFilePanel(m_tabpanel);
+    //m_tabpanel->AddPage(m_media_file_panel, _L("Storage"), "", false);
     //m_tabpanel->AddPage(m_media_file_panel, _L("Internal Storage"), "", false);
 
-    m_upgrade_panel = new UpgradePanel(m_tabpanel);
-    m_tabpanel->AddPage(m_upgrade_panel, _L("Update"), "", false);
+    //m_upgrade_panel = new UpgradePanel(m_tabpanel);
+    //m_tabpanel->AddPage(m_upgrade_panel, _L("Update"), "", false);
 
-    m_hms_panel = new HMSPanel(m_tabpanel);
-    m_tabpanel->AddPage(m_hms_panel, "HMS","", false);
+    //m_hms_panel = new HMSPanel(m_tabpanel);
+    //m_tabpanel->AddPage(m_hms_panel, "HMS","", false);
 
     m_initialized = true;
     show_status((int)MonitorStatus::MONITOR_NO_PRINTER);
@@ -210,7 +212,9 @@ void MonitorPanel::set_default()
     last_conn_type = "undefined";
 
     /* reset status panel*/
-    m_status_info_panel->set_default();
+    if(nullptr != m_status_info_panel) {
+        m_status_info_panel->set_default();
+    }
 
     /* reset side tool*/
     //m_bitmap_wifi_signal->SetBitmap(wxNullBitmap);
@@ -234,9 +238,15 @@ wxWindow* MonitorPanel::create_side_tools()
 
 void MonitorPanel::on_sys_color_changed()
 {
-    m_status_info_panel->on_sys_color_changed();
-    m_upgrade_panel->on_sys_color_changed();
-    m_media_file_panel->Rescale();
+    if(nullptr != m_status_info_panel) {
+         m_status_info_panel->on_sys_color_changed(); 
+    }
+    if(nullptr != m_upgrade_panel) {
+        m_upgrade_panel->on_sys_color_changed();
+    }
+    if(nullptr != m_media_file_panel) {
+         m_media_file_panel->Rescale();
+    }
 }
 
 void MonitorPanel::msw_rescale()
@@ -246,11 +256,19 @@ void MonitorPanel::msw_rescale()
     /* side_tool rescale */
     m_side_tools->msw_rescale();
     m_tabpanel->Rescale();
-    //m_status_add_machine_panel->msw_rescale();
-    m_status_info_panel->msw_rescale();
-    m_media_file_panel->Rescale();
-    m_upgrade_panel->msw_rescale();
-    m_hms_panel->msw_rescale();
+    m_status_add_machine_panel->msw_rescale();
+    if(nullptr != m_status_info_panel){
+        m_status_info_panel->msw_rescale();
+    }
+    if(nullptr!=m_media_file_panel) { 
+         m_media_file_panel->Rescale();
+    }  
+    if(nullptr!= m_upgrade_panel) {
+        m_upgrade_panel->msw_rescale();
+    }
+    if(nullptr != m_hms_panel){
+        m_hms_panel->msw_rescale();
+    }
 
     Layout();
     Refresh();
@@ -370,16 +388,26 @@ void MonitorPanel::update_all()
             last_conn_type = obj->connection_type();
         }
     }
+    if(nullptr != m_status_info_panel) {
+        m_status_info_panel->obj = obj;
+    }
+    if(nullptr != m_upgrade_panel){
+        m_upgrade_panel->update(obj);
+    }
+    if(nullptr!= m_status_info_panel) {
+         m_status_info_panel->m_media_play_ctrl->SetMachineObject(obj);
+    }
+    if(nullptr!= m_media_file_panel){
+        m_media_file_panel->SetMachineObject(obj);
+    } 
 
-    m_status_info_panel->obj = obj;
-    m_upgrade_panel->update(obj);
-    m_status_info_panel->m_media_play_ctrl->SetMachineObject(obj);
-    m_media_file_panel->SetMachineObject(obj);
     m_side_tools->update_status(obj);
 
     if (!obj) {
         show_status((int)MONITOR_NO_PRINTER);
-        m_hms_panel->clear_hms_tag();
+        if(nullptr != m_hms_panel) {
+            m_hms_panel->clear_hms_tag();
+        }
         m_tabpanel->GetBtnsListCtrl()->showNewTag(3, false);
         return;
     }
@@ -401,22 +429,30 @@ void MonitorPanel::update_all()
 
     show_status(MONITOR_NORMAL);
 
-
-    if (m_status_info_panel->IsShown()) {
-        m_status_info_panel->update(obj);
+    if(nullptr!= m_status_info_panel) {
+        if (m_status_info_panel->IsShown()) {
+            m_status_info_panel->update(obj);
+        }
+    } 
+    
+    if(nullptr != m_hms_panel) {
+        if (m_hms_panel->IsShown() ||  (obj->hms_list.size() != m_hms_panel->temp_hms_list.size())) {
+            m_hms_panel->update(obj);
+        }
     }
-
-    if (m_hms_panel->IsShown() ||  (obj->hms_list.size() != m_hms_panel->temp_hms_list.size())) {
-        m_hms_panel->update(obj);
-    }
+    
 
 #if !BBL_RELEASE_TO_PUBLIC
-    if (m_upgrade_panel->IsShown()) {
-        m_upgrade_panel->update(obj);
+    if(nullptr != m_upgrade_panel){
+        if (m_upgrade_panel->IsShown()) {
+            m_upgrade_panel->update(obj);
+        }
     }
 #endif
-
-    update_hms_tag();
+    if(nullptr != m_hms_panel) {
+        update_hms_tag();
+    }
+    
 }
 
 void MonitorPanel::update_hms_tag()
@@ -511,9 +547,16 @@ void MonitorPanel::show_status(int status)
 Freeze();
     // update panels
     if (m_side_tools) { m_side_tools->show_status(status); };
-    m_status_info_panel->show_status(status);
-    m_hms_panel->show_status(status);
-    m_upgrade_panel->show_status(status);
+    if(nullptr != m_status_info_panel) {
+        m_status_info_panel->show_status(status);
+    }
+    if(nullptr != m_hms_panel){
+        m_hms_panel->show_status(status);
+    }
+    if(nullptr != m_upgrade_panel) {
+        m_upgrade_panel->show_status(status);       
+    }
+    
 
     if ((status & (int)MonitorStatus::MONITOR_NO_PRINTER) != 0) {
         set_default();

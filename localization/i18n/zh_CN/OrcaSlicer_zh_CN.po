@@ -8806,7 +8806,7 @@ msgstr "使用IP和访问代码连接打印"
 
 msgid ""
 "Step 1. Please confirm Orca Slicer and your printer are in the same LAN."
-msgstr ""
+msgstr "步骤1，确保运行本软件与打印机在同一个网段内。"
 
 msgid ""
 "Step 2. If the IP and Access Code below are different from the actual values "
@@ -18636,3 +18636,24 @@ msgstr ""
 
 #~ msgid "Orient the model"
 #~ msgstr "旋转模型"
+
+msgid "click to add machine"
+msgstr "点击添加打印机"
+
+msgid "Bind with IP"
+msgstr "通过IP绑定"
+
+msgid "Connect the printer using IP"
+msgstr "使用IP和访问代码连接打印"
+
+msgid ""
+"Step 1. Please confirm BSRC Slicer and your printer are in the same LAN."
+msgstr "步骤1，确保运行本软件与打印机在同一个网段内。"
+
+msgid ""
+"Step 2. If the IP below are different from the actual values "
+"on your printer, please correct them."
+msgstr "步骤2，如果下面的IP与打印机上的实际值不同，请重新输入。"
+
+msgid "Where to find your printer's IP?"
+msgstr "在哪里可以找到打印机的IP?"

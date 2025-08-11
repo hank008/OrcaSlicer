@@ -347,13 +347,15 @@ SelectMachinePopup::SelectMachinePopup(wxWindow *parent)
 
     m_panel_ping_code = new PinCodePanel(m_scrolledWindow, 0, wxID_ANY, wxDefaultPosition, SELECT_MACHINE_ITEM_SIZE);
     m_panel_direct_connection = new PinCodePanel(m_scrolledWindow, 1, wxID_ANY, wxDefaultPosition, SELECT_MACHINE_ITEM_SIZE);
+    m_panel_ip_bind           = new PinCodePanel(m_scrolledWindow, 2, wxID_ANY, wxDefaultPosition, SELECT_MACHINE_ITEM_SIZE);
 
     m_sizxer_scrolledWindow->Add(own_title, 0, wxEXPAND | wxLEFT, FromDIP(15));
     m_sizxer_scrolledWindow->Add(m_sizer_my_devices, 0, wxEXPAND, 0);
-    m_sizxer_scrolledWindow->Add(m_panel_ping_code, 0, wxEXPAND, 0);
-    m_sizxer_scrolledWindow->Add(m_panel_direct_connection, 0, wxEXPAND, 0);
-    m_sizxer_scrolledWindow->Add(other_title, 0, wxEXPAND | wxLEFT, FromDIP(15));
-    m_sizxer_scrolledWindow->Add(m_sizer_other_devices, 0, wxEXPAND, 0);
+    m_sizxer_scrolledWindow->Add(m_panel_ip_bind, 0, wxEXPAND, 0);
+    //m_sizxer_scrolledWindow->Add(m_panel_ping_code, 0, wxEXPAND, 0);
+    //m_sizxer_scrolledWindow->Add(m_panel_direct_connection, 0, wxEXPAND, 0);
+    //m_sizxer_scrolledWindow->Add(other_title, 0, wxEXPAND | wxLEFT, FromDIP(15));
+    //m_sizxer_scrolledWindow->Add(m_sizer_other_devices, 0, wxEXPAND, 0);
 
     m_sizer_main->Add(m_scrolledWindow, 0, wxALL | wxEXPAND, FromDIP(2));
 
@@ -1014,6 +1016,9 @@ PinCodePanel::PinCodePanel(wxWindow* parent, int type, wxWindowID winid /*= wxID
      wxString txt;
      if (m_type == 0) {txt = _L("Bind with Pin Code");}
      else if (m_type == 1) {txt = _L("Bind with Access Code");}
+     else if (m_type == 2) {
+         txt = _L("Bind with IP");
+     }
 
      auto txt_size = dc.GetTextExtent(txt);
      dc.DrawText(txt, wxPoint(FromDIP(28), (size.y - txt_size.y) / 2));
@@ -1044,6 +1049,9 @@ PinCodePanel::PinCodePanel(wxWindow* parent, int type, wxWindowID winid /*= wxID
      }
      else if (m_type == 1) {
          InputIpAddressDialog dlgo;
+         dlgo.ShowModal();
+     } else if (m_type == 2) {
+         InputIpAddressAndNameDialog dlgo;
          dlgo.ShowModal();
      }
  }
